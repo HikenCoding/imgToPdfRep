@@ -22,6 +22,17 @@ class ImageToPDFConverter:
         
         self.selected_images_listbox.pack(pady=(0,10), fill=tk.BOTH, expand=True)
         
+        label = tk.Label(self.root, text="Enter output PDF name:")
+        label.pack()
+        
+        pdf_name_entry = tk.Entry(self.root, textvariable=self.output_pdf_name, width=40,
+                                  justify='center')
+        pdf_name_entry.pack()
+        
+        convert_button = tk.Button(self.root, text="Convert to PDF", command=self.
+                                         convert_images_to_pdf)
+        convert_button.pack(pady=(20,40))
+        
 def main():
     root = tk.Tk()
     root.title("Image to PDF")
