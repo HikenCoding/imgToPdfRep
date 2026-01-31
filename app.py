@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import filedialog
+from reportlab.pdfgen import canvas
+from PIL import Image
 import os
+
 
 class ImageToPDFConverter:
     def __init__(self, root):
