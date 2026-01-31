@@ -20,6 +20,8 @@ class ImageToPDFConverter:
                                          select_images)
         select_images_button.pack(pady=(0,10))
         
+        self.selected_images_listbox.pack(pady=(0,10), fill=tk.BOTH, expand=True)
+        
 def main():
     root = tk.Tk()
     root.title("Image to PDF")
