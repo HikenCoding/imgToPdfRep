@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 from reportlab.pdfgen import canvas
 from PIL import Image
+from reportlab.lib import colors
 import os
 
 
@@ -66,6 +67,13 @@ class ImageToPDFConverter:
             new_height = img.height * scale_factor
             x_centered = (612 - new_width) / 2
             y_centered = (792 - new_height) / 2
+            
+            pdf.setFillColor(colors.white)
+            pdf.rect(0, 0, 612, 792, fill=True)
+            pdf.drawInlineImage(img, x_centered, y_centered, width=new_width, height=new_height)
+            pdf.showPage()
+        
+        pdf.save()
 
         
         
