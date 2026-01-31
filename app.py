@@ -39,11 +39,20 @@ class ImageToPDFConverter:
                                                        filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
         self.update_selected_images_listbox()
         
-    def update_selected_images_listbox():
+    def update_selected_images_listbox(self):
         self.selected_images_listbox.delete(0, tk.END)
         
         for image_path in self.image_paths:
             _, image_path = os.path.split(image_path)
+            self.selected_images_listbox.insert(tk.END, image_path)
+            
+    def convert_images_to_pdf(self):
+        if not self.image_paths:
+            return 
+        
+        output_pdf_path = self.output_pdf_name.get() + ".pdf" if self.output_pdf_name.get() else "output.pdf"
+        
+
         
         
 def main():
