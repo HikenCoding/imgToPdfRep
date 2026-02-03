@@ -37,6 +37,10 @@ class ImageToPDFConverter:
                                          convert_images_to_pdf)
         convert_button.pack(pady=(20,40))
         
+        savePdfInFolder = tk.Button(self.root, text="Save Images in Desktop", command=self.
+                                         convert_img_to_pdf)
+        savePdfInFolder.pack(pady=(30,50))
+        
 
     def select_images(self):
         self.image_paths = filedialog.askopenfilenames(title="Select Images", 
