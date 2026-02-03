@@ -74,8 +74,23 @@ class ImageToPDFConverter:
             pdf.showPage()
         
         pdf.save()
-
+    
+    def choose_save_path(default_name="converted-pdf"):
+        return filedialog.asksaveasfile(
+            title="PDF speichern unter ...",
+            defaultextension=".pdf",
+            initialfile=default_name,
+            filetypes=[("PDF-Datei", "*.pdf")]
+        )
         
+        
+    def convert_img_to_pdf(self):
+        save_path = self.choose_save_path("converted.pdf")
+        if not save_path:
+            return
+        
+        c = canvas.Canvas(save_path)
+        c.save()
         
 def main():
     root = tk.Tk()
