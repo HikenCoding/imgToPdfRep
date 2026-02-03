@@ -79,7 +79,7 @@ class ImageToPDFConverter:
         
         pdf.save()
     
-    def choose_save_path(default_name="converted-pdf"):
+    def choose_save_path(self, default_name="converted-pdf"):
         return filedialog.asksaveasfile(
             title="PDF speichern unter ...",
             defaultextension=".pdf",
