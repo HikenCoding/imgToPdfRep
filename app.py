@@ -3,6 +3,9 @@ from tkinter import filedialog
 from reportlab.pdfgen import canvas
 from PIL import Image
 from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.utils import ImageReader
+from PIL import Image
 import os
 
 
@@ -89,12 +92,35 @@ class ImageToPDFConverter:
         
         
     def convert_img_to_pdf(self):
+        img_paths = filedialog.askopenfilenames(
+            title="Bilder auswählen",
+            filetypes=[("Bilder", "*.png *.jpg *.jpeg *.bmp *.webp",)]
+        )
+        if not img_paths:
+            return
+        
         save_path = self.choose_save_path("converted.pdf")
         if not save_path:
             return
         
-        c = canvas.Canvas(save_path)
+        page_w, page_h = A4
+        c=canvas.Canvas(save_path, pagesize=A4)
+        
+        for img_path in img_paths:
+            img = Image.open(img_path)
+            img_w, img_h = img.size
+            
+            scale = min(page_w / img_w, page_h / img_h)
+            new_w = img_w * scale
+            new_h = img_h * scale
+            
+            x = (page_w - new_w) /2
+            y = (page_h - new_h) /2
+            
+            c.drawImage(ImageReader(img), x, y, wdith = new_w, height=new_h)
+            c.showPage()
         c.save()
+        
         
 def main():
     root = tk.Tk()
