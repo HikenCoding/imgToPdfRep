@@ -48,7 +48,7 @@ class ImageToPDFConverter:
         
         clear_images_button = tk.Button(
             self.root, 
-            text="Select Images",
+            text="Clear all ❌",
             command=self.clear_images)
         clear_images_button.pack(pady=(0,10))
         
