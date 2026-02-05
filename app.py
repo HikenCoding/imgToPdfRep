@@ -40,14 +40,16 @@ class ImageToPDFConverter:
                                          convert_images_to_pdf)
         convert_button.pack(pady=(20,40))
         
-        savePdfInFolder = tk.Button(self.root, text="Save Images in Desktop", command=self.
-                                         convert_img_to_pdf)
+        savePdfInFolder = tk.Button(
+            self.root, 
+            text="Save Images in Desktop", 
+            command=self.save_pdf_in_folder)
         savePdfInFolder.pack(pady=(30,50))
         
 
     def select_images(self):
         self.image_paths = filedialog.askopenfilenames(title="Select Images", 
-                                                       filetypes=[("Image files", "*.png;*.jpg;*.jpeg")])
+                                                       filetypes=[("Image files", "*.png *.jpg *.jpeg")])
         self.update_selected_images_listbox()
         
     def update_selected_images_listbox(self):
@@ -82,7 +84,7 @@ class ImageToPDFConverter:
         
         pdf.save()
     
-    def choose_save_path(self, default_name="converted-pdf"):
+    def choose_save_path(self, default_name="converted.pdf"):
         return filedialog.asksaveasfilename(
             title="PDF speichern unter ...",
             defaultextension=".pdf",
@@ -90,13 +92,8 @@ class ImageToPDFConverter:
             filetypes=[("PDF-Datei", "*.pdf")]
         )
         
-        
-    def convert_img_to_pdf(self):
-        img_paths = filedialog.askopenfilenames(
-            title="Bilder auswählen",
-            filetypes=[("Bilder", "*.png *.jpg *.jpeg *.bmp *.webp",)]
-        )
-        if not img_paths:
+    def save_pdf_in_folder(self):
+        if not self.image_paths:
             return
         
         save_path = self.choose_save_path("converted.pdf")
@@ -104,9 +101,9 @@ class ImageToPDFConverter:
             return
         
         page_w, page_h = A4
-        c=canvas.Canvas(save_path, pagesize=A4)
+        c = canvas.Canvas(save_path, pagesize=A4)
         
-        for img_path in img_paths:
+        for img_path in self.image_paths:
             img = Image.open(img_path)
             img_w, img_h = img.size
             
@@ -114,12 +111,15 @@ class ImageToPDFConverter:
             new_w = img_w * scale
             new_h = img_h * scale
             
-            x = (page_w - new_w) /2
-            y = (page_h - new_h) /2
+            x =(page_w -new_w) / 2
+            y =(page_h - new_h) /2
             
-            c.drawImage(ImageReader(img), x, y, wdith = new_w, height=new_h)
+            c.drawImage(ImageReader(img), x, y, width=new_w, height=new_h)
             c.showPage()
+            
         c.save()
+        
+ 
         
         
 def main():
