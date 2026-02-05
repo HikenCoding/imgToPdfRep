@@ -46,11 +46,20 @@ class ImageToPDFConverter:
             command=self.save_pdf_in_folder)
         savePdfInFolder.pack(pady=(30,50))
         
+        clear_images_button = tk.Button(
+            self.root, 
+            text="Select Images",
+            command=self.clear_images)
+        clear_images_button.pack(pady=(0,10))
+        
 
     def select_images(self):
         self.image_paths = filedialog.askopenfilenames(title="Select Images", 
                                                        filetypes=[("Image files", "*.png *.jpg *.jpeg")])
         self.update_selected_images_listbox()
+        
+    def clear_images(self):
+        self.selected_images_listbox.delete(0, tk.END)
         
     def update_selected_images_listbox(self):
         self.selected_images_listbox.delete(0, tk.END)
